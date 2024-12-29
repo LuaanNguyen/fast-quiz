@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 type problem struct {
@@ -19,9 +20,24 @@ func main() {
 		log.Fatal(err)
 	}
 
-	for _, problem := range problems {
-		fmt.Printf("Question: %s, Answer: %s\n", problem.question, problem.answer)
+	var correct int = 0 
+	var incorrect int = 0 
+
+	for i, problem := range problems {
+		log.Printf("%d. Question: %s\n", i + 1, problem.question)
+		var input string
+		fmt.Scanln( &input)
+		if strings.TrimSpace(input) == strings.TrimSpace(problem.answer) {
+			correct ++
+			fmt.Println("Correct!")
+		} else {
+			incorrect ++
+			fmt.Println("Incorrect!")
+		}
+		fmt.Println()
 	}
+	
+	log.Printf("Correct: %d, Incorrect: %d", correct, incorrect)
 }
 
 func readProblems(fileName string) ([]problem, error) {
@@ -36,6 +52,8 @@ func readProblems(fileName string) ([]problem, error) {
 	records, err := reader.ReadAll()
 	if err != nil {
 		return nil, err
+	} else {
+		log.Printf("Reading from file: %s", fileName)
 	}
 
 	problems := make([]problem, len(records))
