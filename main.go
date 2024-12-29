@@ -19,7 +19,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(problems)
+	for _, problem := range problems {
+		fmt.Printf("Question: %s, Answer: %s\n", problem.question, problem.answer)
+	}
 }
 
 func readProblems(fileName string) ([]problem, error) {
