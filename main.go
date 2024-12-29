@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"fmt"
 	"log"
+	"math/rand/v2"
 	"os"
 	"strings"
 	"time"
@@ -23,6 +24,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+
+	// Shuffle problems (optional) 
+	//rand.Seed(time.Now().UnixNano()) // Deprecated since Go 1.20
+	rand.Shuffle(len(problems), func(i, j int) {
+		problems[i], problems[j] = problems[j], problems[i]
+	})
 
 	// Initialize timer 
 	timeLimit := time.Duration(DEFAULT_TIME) * time.Second
