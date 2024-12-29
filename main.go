@@ -7,25 +7,42 @@ import (
 	"os"
 )
 
-func main() {
-	//fmt.Println("Hello World!")
+type problem struct {
+	question string 
+	answer string
+}
 
-	file, err := os.Open("data/problems.csv")
+func main() {
+	// Open and read data from csv
+	problems, err := readProblems("data/problems.csv")
 	if err != nil {
-		log.Fatal("Error while reading the file", err)
+		log.Fatal(err)
+	}
+
+	fmt.Println(problems)
+}
+
+func readProblems(fileName string) ([]problem, error) {
+	file, err := os.Open(fileName)
+	if err != nil {
+		return nil, err
 	}
 
 	defer file.Close() //Ensure that the file is properly closed after the function is completed 
 
 	reader := csv.NewReader(file) 
-
-	problems, err := reader.ReadAll()
-
+	records, err := reader.ReadAll()
 	if err != nil {
-		fmt.Println("Error reading problems")
+		return nil, err
 	}
 
-	for _, problem := range problems {
-		fmt.Println(problem)
+	problems := make([]problem, len(records))
+	for i, record := range records {
+		problems[i] = problem{
+			question: record[0],
+			answer: record[1],
+		}
 	}
+
+	return problems, nil 
 }
