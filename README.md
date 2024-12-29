@@ -2,7 +2,7 @@
 
 Lesson from [gophercises.com](https://gophercises.com/)
 
-### Part 1
+### Part 1 ✅
 
 Create a program that will read in a quiz provided via a CSV file (more details below) and will then give the quiz to a user keeping track of how many questions they get right and how many they get incorrect. Regardless of whether the answer is correct or wrong the next question should be asked immediately afterwards.
 
@@ -32,7 +32,7 @@ At the end of the quiz the program should output the total number of questions c
 
 **NOTE:** _CSV files may have questions with commas in them. Eg: `"what 2+2, sir?",4` is a valid row in a CSV. I suggest you look into the CSV package in Go and don't try to write your own CSV parser._
 
-### Part 2
+### Part 2 ✅
 
 Adapt your program from part 1 to add a timer. The default time limit should be 30 seconds, but should also be customizable via a flag.
 
@@ -42,9 +42,22 @@ Users should be asked to press enter (or some other key) before the timer starts
 
 At the end of the quiz the program should still output the total number of questions correct and how many questions there were in total. Questions given invalid answers or unanswered are considered incorrect.
 
-## Bonus
+## Bonus ✅
 
 As a bonus exercises you can also...
 
 1. Add string trimming and cleanup to help ensure that correct answers with extra whitespace, capitalization, etc are not considered incorrect. _Hint: Check out the [strings](https://golang.org/pkg/strings/) package._
 2. Add an option (a new flag) to shuffle the quiz order each time it is run.
+
+## Topics Learned: 
+- Use os.Open() to open a file. The return value is *os.File
+- Use defer file.Close() to automatically close the program once main() stops
+- Use csv.NewReader() to read *os.File. The return value is *csv.Reader. Then you can use reader.ReadAll() to convert into [][]string slice
+- Create struct
+- Handling error as a value in Go. err != nil means there is an error
+- log.Fatal(err) causes the program to immediately stops. Use this when there is an error that disrupt the program flow
+- use rand.Shuffle (without rand.Seed() since it is deprecated since Go 1.20) to shuffle slices
+- Use time package
+- use fmt.Scanln
+- Learn about concurrency, channels and select statements
+- String formatting
