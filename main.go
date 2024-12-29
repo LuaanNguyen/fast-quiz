@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+//Package level declaration - Global Variable
 const DATA_PATH = "data/problems.csv"
 const DEFAULT_TIME = 30
 
@@ -24,7 +25,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 
 	// Shuffle problems (optional) 
 	//rand.Seed(time.Now().UnixNano()) // Deprecated since Go 1.20
@@ -81,6 +81,7 @@ func readProblems(fileName string) ([]problem, error) {
 
 	reader := csv.NewReader(file) 
 	records, err := reader.ReadAll()
+	
 	if err != nil {
 		return nil, err
 	} else {
